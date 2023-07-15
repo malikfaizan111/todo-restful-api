@@ -1,9 +1,20 @@
 const Todo = require('../Models/todo');
+const Joi = require('joi');
+
+const todoSchema = Joi.object({
+  title: Joi.string().required(),
+  description: Joi.string().required(),
+});
 
 module.exports = {
   async create(req, res) {
     try {
       const { title, description } = req.body;
+            // Validate the request body
+            const { error } = todoSchema.validate({ title, description });
+            if (error) {
+              return res.status(400).json({ error: error.details[0].message });
+            }
       const todo = await Todo.create({ title, description });
       return res.status(201).json(todo);
     } catch (error) {

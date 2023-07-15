@@ -15,5 +15,4 @@ db.sync()
 
 //   npm install express sequelize mysql2
 //   npm install jsonwebtoken bcrypt
-
-//     "pg": "^8.11.1","pg-hstore": "^2.3.4",
+//   npm install joi

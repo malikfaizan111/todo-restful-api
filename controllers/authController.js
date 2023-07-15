@@ -1,11 +1,22 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../Models/user');
+const Joi = require('joi');
+
+const userSchema = Joi.object({
+  email: Joi.string().required(),
+  password: Joi.string().required(),
+});
 
 module.exports = {
   async register(req, res) {
     try {
       const { email, password } = req.body;
+      // Validate the request body
+      const { error } = userSchema.validate({ email, password });
+      if (error) {
+          return res.status(400).json({ error: error.details[0].message });
+      }
       const hashedPassword = await bcrypt.hash(password, 10);
       const user = await User.create({ email: email, password: hashedPassword });
       return res.status(201).json({ user: user.email });
