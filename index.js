@@ -3,8 +3,7 @@ const db = require('./util/database');
 
 const PORT = process.env.PORT || 3000;
 
-db.sequelize
-  .sync()
+db.sync()
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Server is listening on port ${PORT}`);
@@ -14,5 +13,7 @@ db.sequelize
     console.error('Unable to connect to the database:', error);
   });
 
-//   npm install express sequelize pg pg-hstore
+//   npm install express sequelize mysql2
 //   npm install jsonwebtoken bcrypt
+
+//     "pg": "^8.11.1","pg-hstore": "^2.3.4",

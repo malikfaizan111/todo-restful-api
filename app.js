@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken'); 
 const todoRoutes = require('./Routes/todoRouter');
 const authRoutes = require('./Routes/authRoutes');
 
@@ -11,6 +12,7 @@ app.use('/auth', authRoutes);
 // Authentication middleware
 app.use((req, res, next) => {
   const token = req.headers.authorization;
+  console.log(token);
   if (!token) {
     return res.status(401).json({ error: 'Unauthorized' });
   }

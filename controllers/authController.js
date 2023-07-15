@@ -1,15 +1,16 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const { User } = require('../Models/user.model');
+const User = require('../Models/user');
 
 module.exports = {
   async register(req, res) {
     try {
       const { email, password } = req.body;
       const hashedPassword = await bcrypt.hash(password, 10);
-      const user = await User.create({ email, password: hashedPassword });
+      const user = await User.create({ email: email, password: hashedPassword });
       return res.status(201).json({ user: user.email });
     } catch (error) {
+      console.log(error);
       return res.status(500).json({ error: 'Internal server error' });
     }
   },
