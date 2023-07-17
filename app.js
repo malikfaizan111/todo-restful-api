@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken'); 
 const todoRoutes = require('./Routes/todoRouter');
 const authRoutes = require('./Routes/authRoutes');
+const errorController = require('./controllers/error');
 const User = require('./Models/user');
 let userProfile;
 app.use(bodyParser.json());
@@ -37,4 +38,5 @@ app.use((req,res,next)=>{
 
 app.use('/todos', todoRoutes);
 
+app.use(errorController.get404);
 module.exports = app;
