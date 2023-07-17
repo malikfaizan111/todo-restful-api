@@ -1,7 +1,12 @@
 const app = require('./app');
+const User = require('./Models/user');
+const Todo = require('./Models/todo');
 const db = require('./util/database');
 
 const PORT = process.env.PORT || 3000;
+
+Todo.belongsTo(User,{constraints:true, onDelete: 'CASCADE'});
+User.hasMany(Todo);
 
 db.sync()
   .then(() => {
